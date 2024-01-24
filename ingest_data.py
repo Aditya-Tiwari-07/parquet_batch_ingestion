@@ -36,11 +36,11 @@ def main(params):
         df = table.to_pandas(split_blocks=True, self_destruct=True)
 
         if flag == False:
-            df.to_sql(name='yellow_taxi_data',
+            df.to_sql(name=f"{table_name}",
                       con=engine, if_exists='replace')
             flag = True
         else:
-            df.to_sql(name='yellow_taxi_data',
+            df.to_sql(name=f"{table_name}",
                       con=engine, if_exists='append')
 
         t_end = time()
