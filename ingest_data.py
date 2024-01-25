@@ -10,14 +10,14 @@ import pyarrow.parquet as pq
 import pyarrow as pa
 
 
-def main(params):
-    user = params.user
-    password = params.password
-    host = params.host
-    port = int(params.port)
-    db = params.db
-    table_name = params.table_name
-    url = params.url
+def main():
+    user = os.environ['POSTGRES_USER']
+    password = os.environ['POSTGRES_PASSWORD']
+    host = os.environ['HOST']
+    port = os.environ['PORT']
+    db = os.environ['POSTGRES_DB']
+    table_name = os.environ['TABLE_NAME']
+    url = os.environ['URL']
 
     engine = create_engine(
         f'postgresql://{user}:{password}@{host}:{port}/{db}')
@@ -51,20 +51,4 @@ def main(params):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(
-        description='Ingest parquet data to Postgres')
-
-    # user, password, host, port, database name, table name, url of the parquet file
-
-    parser.add_argument('--user', help='user name for postgres')
-    parser.add_argument('--password', help='password for postgres')
-    parser.add_argument('--host', help='host name for postgres')
-    parser.add_argument('--port', help='port number for postgres')
-    parser.add_argument('--db', help='database name for postgres')
-    parser.add_argument(
-        '--table_name', help='name of the table to insert into')
-    parser.add_argument('--url', help='url of the parquet file')
-
-    args = parser.parse_args()
-
-    main(args)
+    main()
